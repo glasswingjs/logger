@@ -1,0 +1,69 @@
+{
+  "name": "@glasswing/template",
+  "version": "0.0.1",
+  "description": "GlassWingJs Package Template",
+  "main": "dist/commonjs/index.js",
+  "scripts": {
+    "build": "rollup -c --environment NODE_ENV:production",
+    "clean": "cross-env rimraf .nyc_output .rollupcache dist",
+    "lint": "tslint -c tslint.json 'src/**/*.ts'",
+    "prebuild": "cross-env rimraf dist",
+    "prepare-for-dev": "node .scripts/prepare-for-dev.js",
+    "pretest": "cross-env rimraf dist",
+    "prettier": "prettier",
+    "prettier:check": "npm run prettier -- --list-different \"src/**/*.{ts,tsx}\" && npm run prettier -- --list-different \"test/**/*.{ts,tsx}\"",
+    "prettier:write": "npm run prettier -- --write \"src/**/*.{ts,tsx}\" && npm run prettier -- --write \"test/**/*.{ts,tsx}\"",
+    "release": "release-it --verbose",
+    "test": "nyc --extension .ts mocha --forbid-only \"test/**/*.test.ts\"",
+    "test:html": "nyc --reporter html --extension .ts mocha --forbid-only \"test/**/*.test.ts\"",
+    "test:watch": "nodemon --exec \"npm run test\"",
+    "git-hook:pre-commit": "npm run prettier:write && npm run lint && npm run test && npm run build",
+    "serve": "ts-node src/index.ts",
+    "serve:watch": "nodemon --exec \"npm run serve\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/glasswingjs/common.git"
+  },
+  "author": "Dragos Cirjan",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/glasswingjs/common/issues"
+  },
+  "homepage": "https://github.com/glasswingjs/common#readme",
+  "devDependencies": {
+    "@types/chai": "^4.2.7",
+    "@types/finalhandler": "^1.1.0",
+    "@types/mocha": "^5.2.7",
+    "@types/node": "^12.12.17",
+    "@types/node-fetch": "^2.5.4",
+    "@types/set-cookie-parser": "0.0.6",
+    "@types/yaml": "^1.2.0",
+    "chai": "^4.2.0",
+    "cross-env": "^6.0.3",
+    "dts-bundle-generator": "^3.3.1",
+    "mocha": "^6.2.2",
+    "node-fetch": "^2.6.0",
+    "nodemon": "^2.0.2",
+    "nyc": "^14.1.1",
+    "prettier": "^1.19.1",
+    "reflect-metadata": "^0.1.13",
+    "release-it": "^12.4.3",
+    "rimraf": "^3.0.0",
+    "rollup": "^1.27.13",
+    "rollup-plugin-dts": "^1.1.13",
+    "rollup-plugin-typescript2": "^0.25.3",
+    "ts-node": "^8.5.4",
+    "tslint": "^5.20.1",
+    "tsyringe": "^4.0.1",
+    "typescript": "^3.7.3",
+    "typings": "^2.1.1",
+    "yaml": "^1.7.2",
+    "yorkie": "^2.0.0"
+  },
+  "types": "dist/index.d.ts",
+  "dependencies": {},
+  "gitHooks": {
+    "pre-commit": "npm run git-hook:pre-commit && git add ."
+  }
+}

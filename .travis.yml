@@ -1,0 +1,30 @@
+language: node_js
+node_js:
+  - '8'
+  - '10'
+  - lts/*
+  - node
+sudo: false
+cache:
+  directories:
+    - node_modules
+before_script:
+  - test ! -d node_modules || npm prune
+scripts:
+  - npm run test
+  - npm run build
+after_script:
+  - test $TRAVIS_NODE_VERSION != '10' && sonar-scanner
+notifications:
+  email:
+    recipients:
+    - dragos.cirjan+glasswingjs@gmail.com
+    on_success: never
+    on_failure: always
+addons:
+  sonarcloud:
+    organization: "glasswingjs"
+    token:
+      secure: "LlisOceS4p5ditcyY/phGGoTRsTMpPFasYWz5wz9568tumA62n9DzY45G+Xhgque7NzxYekOTatA9Mlp+i1ljhKqq275gG++KuHSKH7PvvjmFivwj3FQhVzMsYnBOOG7QvgP4WqnwVHzX/Z0v67HIe1IDyHTPlKxODA33l1Znf6xgJyNeuhL+eg9AUM7WunGxWd3UOVckEoS3F7k6vmFSX1TCKbzXUJR1TvIKhGhlGoc1AV47BpXGuwgzP6qmadscnk0AN5uI06K1K1bYeTNS3RaGHwCFyU3/mtyfbhiMHpymApsR2Ib6gxh79cMpIP76PcYF9MHjKg/hWF4O9S+t/smQWPeFXkWhI2JXoq7HQsjFJXv+dHyEJSolXfbRx9Wcs+jjL56Sy4ULwVlhbsQY8Rxhvpbxzwho/f+ikB1mrnHLNMLrGBVuKLG2V8hIPSgQAszhJDW/b7Ud4e9OJ6cIKFKrG3qlZmXVTboNbs+3jVUxAjVyaRXlP+0pvlUR4bwyMf89bcO4Tl8pSN240sPjH6vsjUc8eo9Houzi5gpqFb3DHbGACa1n0ZYGfeH3ymD/zNrb1WTS3eq97PSMizSUJPEzmfDGwYdCUep2P/eDHfj+VhBqtdifPNul5rfiXLGuohyW4HufJ8pIo7nSxyaC74CqFg8E4s6cPqAwL/lC4w="
+
+
